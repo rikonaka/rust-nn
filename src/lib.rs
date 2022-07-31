@@ -1,4 +1,4 @@
-use std::fmt;
+use std::{fmt, ops::Mul};
 
 #[cfg(test)]
 mod tests {
@@ -100,6 +100,11 @@ impl Operation {
             _ => Err(()),
         }
     }
+    fn gradient<E>(values: Vec<f32>, output_grad: f32) -> Result<Vec<f32>, E> {
+        let ret = vec![output_grad, output_grad];
+        Ok(ret) // gradient of a and b
+    }
+    }
 }
 
 pub struct AddOp {}
@@ -119,7 +124,7 @@ impl AddOp {
         }
         Err(())
     }
-    fn gradient<E>(Values: Vec<f32>, output_grad: f32) -> Result<Vec<f32>, E> {
+    fn gradient<E>(values: Vec<f32>, output_grad: f32) -> Result<Vec<f32>, E> {
         let ret = vec![output_grad, output_grad];
         Ok(ret) // gradient of a and b
     }
@@ -142,7 +147,7 @@ impl SubOp {
         }
         Err(())
     }
-    fn gradient<E>(Values: Vec<f32>, output_grad: f32) -> Result<Vec<f32>, E> {
+    fn gradient<E>(values: Vec<f32>, output_grad: f32) -> Result<Vec<f32>, E> {
         let ret = vec![output_grad, -1.0 * output_grad];
         Ok(ret) // gradient of a and b
     }
